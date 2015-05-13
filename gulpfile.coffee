@@ -19,7 +19,7 @@ watchify     = require 'watchify'
 MockServer = require('easymock').MockServer
 url = require('url')
 proxy = require('proxy-middleware')
-
+nib = require "nib"
 production   = process.env.NODE_ENV is 'production'
 
 config =
@@ -78,7 +78,7 @@ gulp.task 'styles', ->
   styles = styles.pipe(sourcemaps.init()) unless production
   styles = styles.pipe stylus
       'include css': true
-
+      use: [nib()]
     .on 'error', handleError
     .pipe prefix 'last 2 versions', 'Chrome 34', 'Firefox 28', 'iOS 7'
 
